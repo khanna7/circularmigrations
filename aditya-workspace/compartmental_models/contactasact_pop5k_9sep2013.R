@@ -208,14 +208,10 @@ times <- seq(0, 1e4, 1)
 ### Initial population sizes
 #######################################  
 n.s.mmu=625; n.a.mmu=0; n.c.mmu=0; n.l.mmu=0 # mmu
-## n.s.nfu=1200; n.a.nfu=(12/552*50); # nfu
-## n.c.nfu=(500/552*50); n.l.nfu=(40/552*50); #9Sep13 -- changed initial prev # nfu
 n.s.nfu=1150; n.a.nfu=(12/552*100); # nfu
 n.c.nfu=(500/552*100); n.l.nfu=(40/552*100); # nfu
 n.s.nmu=625; n.a.nmu=0; n.c.nmu=0; n.l.nmu=0; # nfu
 n.s.mmr=625; n.a.mmr=0; n.c.mmr=0; n.l.mmr=0; # nfu
-## n.s.nfr=1200; n.a.nfr=(12/552*50); #nfr 
-## n.c.nfr=(500/552*50); n.l.nfr=(40/552*50); #nfr
 n.s.nfr=1150; n.a.nfr=(12/552*100); # nfr
 n.c.nfr=(500/552*100); n.l.nfr=(40/552*100); # nfr
 n.s.nmr=625; n.a.nmr=0; n.c.nmr=0; n.l.nmr=0; #nmr
@@ -231,13 +227,6 @@ xstart.manuscript <- c(s.mmu=n.s.mmu, a.mmu=n.a.mmu,c.mmu=n.c.mmu, l.mmu=n.l.mmu
                        s.nfr=n.s.nfr,a.nfr=n.a.nfr,c.nfr=n.c.nfr,l.nfr=n.l.nfr,
                        s.nmr=n.s.nmr,a.nmr=n.a.nmr,c.nmr=n.c.nmr, l.nmr=n.l.nmr)
 
-#######################################        
-### Behavioral Informaion
-#######################################  
-
-##n.100 <- 100 # Average partnership duratioan = 100 weeks
-##c <- 3
-##c <- 2
 
 #######################################        
 ### Biological Informaion
@@ -273,20 +262,12 @@ beta.l.n <- late.prb
 ### Mixing Information
 ################################################          
 
-## t.mmu <- 3
-## t.mmr <- 3
-## t.nmu <- 3
-## t.nmr <- 3
 
 t.mmu <- 2.4 # has to be changed to 2.4 to be comparable with 
 t.mmr <- 2.4 # contact as partnership model
 t.nmu <- 2.4
 t.nmr <- 2.4
 
-## t.mmu<-2
-## t.mmr<-2
-## t.nmu<-2
-## t.nmr<-2
 ################################################
 
 ################################################    
@@ -319,47 +300,9 @@ parms.exceptmigration <- c(t.mmu<-t.mmu,t.mmr<-t.mmr,
 ### Experiments -- Acute Phase migrations
 ################################################          
 
-### No Migrations
-### Migration-Rate 0 # does not apply
-delta <- 0
-parms.mig0 <- c(parms.exceptmigration, delta)
-mig0 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig0)
-                           ) 
-
-### Migration-Rate 10
-delta <- 10
-parms.mig10 <- c(parms.exceptmigration, delta)
-mig10 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig10)
-                           ) 
-
-
-### Migration-Rate 7
-delta <- 7
-parms.mig7 <- c(parms.exceptmigration, delta)
-mig7 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig7)
-                           ) 
-
-
-### Migration-Rate 4
-delta <- 4
-parms.mig4 <- c(parms.exceptmigration, delta)
-mig4 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig4)
-                           ) 
 
 ### Migration-Rate 3
-delta <- 3
+delta <- 1/3
 parms.mig3 <- c(parms.exceptmigration, delta)
 mig3 <- as.data.frame(lsoda(xstart.manuscript,
                             times,
@@ -367,31 +310,12 @@ mig3 <- as.data.frame(lsoda(xstart.manuscript,
                             parms.mig3)
                            ) 
 
-### Migration-Rate 1
-delta <- 1
-parms.mig1 <- c(parms.exceptmigration, delta)
-mig1 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig1)
-                           ) 
-
-
 ################################################    
 ### Experiments -- Non-Acute Phase migrations
 ################################################          
 
-### Migration-Rate 20
-delta <- 20
-parms.mig20 <- c(parms.exceptmigration, delta)
-mig20 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig20)
-                           ) 
-
 ### Migration-Rate 30
-delta <- 30
+delta <- 1/30
 parms.mig30 <- c(parms.exceptmigration, delta)
 mig30 <- as.data.frame(lsoda(xstart.manuscript,
                             times,
@@ -399,79 +323,10 @@ mig30 <- as.data.frame(lsoda(xstart.manuscript,
                             parms.mig30)
                            ) 
 
-### Migration-Rate 40
-delta <- 40
-parms.mig40 <- c(parms.exceptmigration, delta)
-mig40 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig40)
-                           ) 
-
-### Migration-Rate 60
-delta <- 60
-parms.mig60 <- c(parms.exceptmigration, delta)
-mig60 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig60)
-                           ) 
-
-### Migration-Rate 80
-delta <- 80
-parms.mig80 <- c(parms.exceptmigration, delta)
-mig80 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig80)
-                           ) 
-
-### Migration-Rate 100
-delta <- 100
-parms.mig100 <- c(parms.exceptmigration, delta)
-mig100 <- as.data.frame(lsoda(xstart.manuscript,
-                            times,
-                            mortality.take1.0b,
-                            parms.mig100)
-                           ) 
-
 ################################################
 ### Acute Phase -- Combine Data
 ################################################
 
-## mig-step 10
-susceptibles.10 <- mig10$s.mmu+mig10$s.nfu+mig10$s.nmu+
-  mig10$s.mmr+mig10$s.nfr+mig10$s.nmr
-acute.10 <- mig10$a.mmu+mig10$a.nfu+mig10$a.nmu+
-  mig10$a.mmr+mig10$a.nfr+mig10$a.nmr
-chronic.10 <- mig10$c.mmu+mig10$c.nfu+mig10$c.nmu+
-  mig10$c.mmr+mig10$c.nfr+mig10$c.nmr
-late.10 <- mig10$l.mmu+mig10$l.nfu+mig10$l.nmu+
-  mig10$l.mmr+mig10$l.nfr+mig10$l.nmr
-infected.10 <- acute.10+chronic.10+late.10
-
-## mig-step 7
-susceptibles.7 <- mig7$s.mmu+mig7$s.nfu+mig7$s.nmu+
-  mig7$s.mmr+mig7$s.nfr+mig7$s.nmr
-acute.7 <- mig7$a.mmu+mig7$a.nfu+mig7$a.nmu+
-  mig7$a.mmr+mig7$a.nfr+mig7$a.nmr
-chronic.7 <- mig7$c.mmu+mig7$c.nfu+mig7$c.nmu+
-  mig7$c.mmr+mig7$c.nfr+mig7$c.nmr
-late.7 <- mig7$l.mmu+mig7$l.nfu+mig7$l.nmu+
-  mig7$l.mmr+mig7$l.nfr+mig7$l.nmr
-infected.7 <- acute.7+chronic.7+late.7
-
-## mig-step 4
-susceptibles.4 <- mig4$s.mmu+mig4$s.nfu+mig4$s.nmu+
-  mig4$s.mmr+mig4$s.nfr+mig4$s.nmr
-acute.4 <- mig4$a.mmu+mig4$a.nfu+mig4$a.nmu+
-  mig4$a.mmr+mig4$a.nfr+mig4$a.nmr
-chronic.4 <- mig4$c.mmu+mig4$c.nfu+mig4$c.nmu+
-  mig4$c.mmr+mig4$c.nfr+mig4$c.nmr
-late.4 <- mig4$l.mmu+mig4$l.nfu+mig4$l.nmu+
-  mig4$l.mmr+mig4$l.nfr+mig4$l.nmr
-
-infected.4 <- acute.4+chronic.4+late.4
 
 ## mig-step 3
 susceptibles.3 <- mig3$s.mmu+mig3$s.nfu+mig3$s.nmu+
@@ -486,33 +341,10 @@ late.3 <- mig3$l.mmu+mig3$l.nfu+mig3$l.nmu+
 infected.3 <- acute.3+chronic.3+late.3
 
 
-## mig-step 1
-susceptibles.1 <- mig1$s.mmu+mig1$s.nfu+mig1$s.nmu+
-  mig1$s.mmr+mig1$s.nfr+mig1$s.nmr
-acute.1 <- mig1$a.mmu+mig1$a.nfu+mig1$a.nmu+
-  mig1$a.mmr+mig1$a.nfr+mig1$a.nmr
-chronic.1 <- mig1$c.mmu+mig1$c.nfu+mig1$c.nmu+
-  mig1$c.mmr+mig1$c.nfr+mig1$c.nmr
-late.1 <- mig1$l.mmu+mig1$l.nfu+mig1$l.nmu+
-  mig1$l.mmr+mig1$l.nfr+mig1$l.nmr
-
-infected.1 <- acute.1+chronic.1+late.1
 
 ################################################
 ### Non-Acute Phase -- Combine Data
 ################################################
-
-## mig-step 20
-susceptibles.20 <- mig20$s.mmu+mig20$s.nfu+mig20$s.nmu+
-  mig20$s.mmr+mig20$s.nfr+mig20$s.nmr
-acute.20 <- mig20$a.mmu+mig20$a.nfu+mig20$a.nmu+
-  mig20$a.mmr+mig20$a.nfr+mig20$a.nmr
-chronic.20 <- mig20$c.mmu+mig20$c.nfu+mig20$c.nmu+
-  mig20$c.mmr+mig20$c.nfr+mig20$c.nmr
-late.20 <- mig20$l.mmu+mig20$l.nfu+mig20$l.nmu+
-  mig20$l.mmr+mig20$l.nfr+mig20$l.nmr
-
-infected.20 <- acute.20+chronic.20+late.20
 
 ## mig-step 30
 susceptibles.30 <- mig30$s.mmu+mig30$s.nfu+mig30$s.nmu+
@@ -526,69 +358,7 @@ late.30 <- mig30$l.mmu+mig30$l.nfu+mig30$l.nmu+
 
 infected.30 <- acute.30+chronic.30+late.30
 
-## mig-step 40
 
-susceptibles.40 <- mig40$s.mmu+mig40$s.nfu+mig40$s.nmu+
-  mig40$s.mmr+mig40$s.nfr+mig40$s.nmr
-acute.40 <- mig40$a.mmu+mig40$a.nfu+mig40$a.nmu+
-  mig40$a.mmr+mig40$a.nfr+mig40$a.nmr
-chronic.40 <- mig40$c.mmu+mig40$c.nfu+mig40$c.nmu+
-  mig40$c.mmr+mig40$c.nfr+mig40$c.nmr
-late.40 <- mig40$l.mmu+mig40$l.nfu+mig40$l.nmu+
-  mig40$l.mmr+mig40$l.nfr+mig40$l.nmr
-
-infected.40 <- acute.40+chronic.40+late.40
-
-## mig-step 60
-susceptibles.60 <- mig60$s.mmu+mig60$s.nfu+mig60$s.nmu+
-  mig60$s.mmr+mig60$s.nfr+mig60$s.nmr
-acute.60 <- mig60$a.mmu+mig60$a.nfu+mig60$a.nmu+
-  mig60$a.mmr+mig60$a.nfr+mig60$a.nmr
-chronic.60 <- mig60$c.mmu+mig60$c.nfu+mig60$c.nmu+
-  mig60$c.mmr+mig60$c.nfr+mig60$c.nmr
-late.60 <- mig60$l.mmu+mig60$l.nfu+mig60$l.nmu+
-  mig60$l.mmr+mig60$l.nfr+mig60$l.nmr
-
-infected.60 <- acute.60+chronic.60+late.60
-
-## mig-step 80
-susceptibles.80 <- mig80$s.mmu+mig80$s.nfu+mig80$s.nmu+
-  mig80$s.mmr+mig80$s.nfr+mig80$s.nmr
-acute.80 <- mig80$a.mmu+mig80$a.nfu+mig80$a.nmu+
-  mig80$a.mmr+mig80$a.nfr+mig80$a.nmr
-chronic.80 <- mig80$c.mmu+mig80$c.nfu+mig80$c.nmu+
-  mig80$c.mmr+mig80$c.nfr+mig80$c.nmr
-late.80 <- mig80$l.mmu+mig80$l.nfu+mig80$l.nmu+
-  mig80$l.mmr+mig80$l.nfr+mig80$l.nmr
-
-infected.80 <- acute.80+chronic.80+late.80
-
-## mig-step 100
-
-susceptibles.100 <- mig100$s.mmu+mig100$s.nfu+mig100$s.nmu+
-  mig100$s.mmr+mig100$s.nfr+mig100$s.nmr
-acute.100 <- mig100$a.mmu+mig100$a.nfu+mig100$a.nmu+
-  mig100$a.mmr+mig100$a.nfr+mig100$a.nmr
-chronic.100 <- mig100$c.mmu+mig100$c.nfu+mig100$c.nmu+
-  mig100$c.mmr+mig100$c.nfr+mig100$c.nmr
-late.100 <- mig100$l.mmu+mig100$l.nfu+mig100$l.nmu+
-  mig100$l.mmr+mig100$l.nfr+mig100$l.nmr
-
-infected.100 <- acute.100+chronic.100+late.100
-
-################################################
-### No Migrations -- Combine data
-################################################
-susceptibles.0 <- mig0$s.mmu+mig0$s.nfu+mig0$s.nmu+
-  mig0$s.mmr+mig0$s.nfr+mig0$s.nmr
-acute.0 <- mig0$a.mmu+mig0$a.nfu+mig0$a.nmu+
-  mig0$a.mmr+mig0$a.nfr+mig0$a.nmr
-chronic.0 <- mig0$c.mmu+mig0$c.nfu+mig0$c.nmu+
-  mig0$c.mmr+mig0$c.nfr+mig0$c.nmr
-late.0 <- mig0$l.mmu+mig0$l.nfu+mig0$l.nmu+
-  mig0$l.mmr+mig0$l.nfr+mig0$l.nmr
-
-infected.0 <- acute.0+chronic.0+late.0
 
 ################################################
 ### plots
@@ -596,35 +366,17 @@ infected.0 <- acute.0+chronic.0+late.0
 
 pdf("contactasact_prevalences.pdf")
 
-plot(infected.1/(infected.1+susceptibles.1),
+plot(infected.3/(infected.3+susceptibles.3),
      type="l", ylim=c(0,1),
      xlab="Time (Weeks)",
      ylab="Prevalence")
 lines(infected.3/(infected.3+susceptibles.3))
-lines(infected.4/(infected.4+susceptibles.4))
-lines(infected.7/(infected.7+susceptibles.7))
-lines(infected.10/(infected.10+susceptibles.10))
-
-lines(infected.20/(infected.20+susceptibles.20), lty=2)
-lines(infected.30/(infected.30+susceptibles.30), lty=2)
-lines(infected.40/(infected.40+susceptibles.40), lty=2)
-lines(infected.60/(infected.60+susceptibles.60), lty=2)
-lines(infected.80/(infected.80+susceptibles.80), lty=2)
-lines(infected.100/(infected.100+susceptibles.100), lty=2)
 
 legend("topleft", c("Frequent Migrations",
                     "Infrequent Migrations"),
                     lty=1:2, inset=0.05)
 dev.off()
 
-pdf("nomigrations_contactasact_prevalences.pdf")
-
-plot(infected.0/(infected.0+susceptibles.0),
-     type="l", ylim=c(0,1),
-     xlab="Time (Weeks)",
-     ylab="Prevalence")
-
-dev.off()
 
 ## for defense
 pdf("contactasact_prevalences_fordefense.pdf")
@@ -637,7 +389,7 @@ plot(infected.3/(infected.3+susceptibles.3),
      cex.lab=1.35,
      cex.axis=1.25)
 
-lines(infected.30/(infected.20+susceptibles.30),
+lines(infected.30/(infected.30+susceptibles.30),
       lty=2, lwd=2)
 
 legend("topright", c("3 weeks",
