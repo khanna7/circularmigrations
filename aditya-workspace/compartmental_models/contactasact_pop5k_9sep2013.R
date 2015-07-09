@@ -146,7 +146,7 @@ with (as.list(parms),{
   ## nfr : non-migrant female rural
   ds.nfr <- (2*nu) - (s.nfr*t.nfr.m*(a.mmr/n.mmr)*beta.a.m) -
     (s.nfr*t.nfr.m*(c.mmr/n.mmr)*beta.c.m) -
-    (s.nfr*t.nfr.m*(l.mmr/n.nmr)*beta.l.m) - # late stage
+    (s.nfr*t.nfr.m*(l.mmr/n.mmr)*beta.l.m) - # late stage
       (s.nfr*t.nfr.nm*(a.nmr/n.nmr)*beta.a.n) -
         (s.nfr*t.nfr.nm*(c.nmr/n.nmr)*beta.c.n) -
         (s.nfr*t.nfr.nm*(l.nmr/n.nmr)*beta.l.n) - # late-stage
