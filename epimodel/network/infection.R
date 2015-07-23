@@ -1,7 +1,7 @@
 #EpiModel code for infection module with my minor edits to take
 #spacial separation into account
 
-function (dat, at) 
+infection <- function (dat, at) 
 {
   active <- dat$attr$active
   status <- dat$attr$status
@@ -29,6 +29,7 @@ function (dat, at)
     #Begin Nathan's edits
     
     n <- length(del$sus)
+    if (n > 0) {
     invalid.edges <- NULL 
     for (i in 1:n) {
       if (get.vertex.attribute(nw, "loc")[del$sus[i]] != 
@@ -45,7 +46,7 @@ function (dat, at)
       invalid.edges <- c(invalid.edges[1:i], invalid.edges[(i+1):n]-1)
     }
     #End Nathan's edits
-    
+    }
     if (!(is.null(del))) {
       del$infDur <- at - dat$attr$infTime[del$inf]
       del$infDur[del$infDur == 0] <- 1

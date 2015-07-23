@@ -1,30 +1,32 @@
-deaths <- function(dat, at) {
-  #Parameters
+deaths <- function (dat, at) {
   death.rate.gen <- dat$param$death.rate.gen
   death.rate.late <- dat$param$death.rate.aids + death.rate.gen
-  late.cutoff <- dat$param$late.cutoff 
-  n <- network.size(dat$nw)
-  
-  #Decide who dies
+  late.cutoff <- dat$param$late.cutoff
+  active.vertices <- which(dat$attr$active == 1)
+  n <- length(active.vertices)
   death.vec <- NULL
-  for (i in 1:n) {
-    if (dat$attr$infTime[i] < late.cutoff) {
-      death.vec[i] <- rbinom(1, 1, death.rate.gen)
+  if (n > 0) {
+    for (i in 1:n) {
+      if (dat$attr$status[i] == "s") {
+        death.vec[i] <- rbinom(1, 1, death.rate.gen)
+      } else {
+        if (dat$attr$infTime[i] > late.cutoff) {
+          death.vec[i] <- rbinom(1, 1, death.rate.late)
+        } else {
+          death.vec[i] <- rbinom(1, 1, death.rate.gen)
+        }
+      }
     }
-    else {
-      death.vec[i] <- rbinom(1, 1, death.rate.late)
+    
+    death.ids <- which(death.vec == 1)
+    m <- length(death.ids)
+    
+    if (m > 0) {
+      dat$attr$active[death.ids] <- 0
+      dat$attr$exitTime[death.ids] <- at
+      dat$nw <- deactivate.vertices(dat$nw, onset = at, terminus = Inf, v = death.ids, deactivate.edges = TRUE)
     }
   }
   
-  death.ids <- which(death.vec == 1)
-  dat$nw <- delete.vertices(dat$nw, death.ids)
-  dat$attr$active <- dat$attr$active[-1*death.ids]
-  dat$attr$status <- dat$attr$status[-1*death.ids]
-  dat$attr$infTime <- dat$attr$infTime[-1*death.ids]
-  dat$attr$entrTime <- dat$attr$entrTime[-1*death.ids]
-  dat$attr$exitTime <- dat$attr$exitTime[-1*death.ids]
-  
   return(dat)
-   
-  
 }
