@@ -1,0 +1,97 @@
+---
+output: html_document
+---
+**Possible Bug**
+----------
+
+I'm getting some interesting errors when I try to run simulations in EpiModel. It seems that simulate.network sometimes isn't getting passed enough parameters. I have a basic undirected network object nw_migrations that has 5000 nodes and 4 vertex attributes, location, sex, migrant status, and type. The fourth is a summary attribute that doesn't contain any new information but is used in the estimation of network coefficients. 
+
+```{r include = FALSE}
+library(EpiModel)
+```
+
+```{r}
+nw_migrations <- network.initialize(5000, directed = FALSE)
+
+sex.vec <- c(rep(1, 2500), rep(0, 2500))
+loc.vec <- c(rep(0, 1250), rep(1, 1250), rep(0, 1250), rep(1, 1250))
+mig.vec <- c(rep(1, 625), rep(0, 625), rep(1, 625), rep(0, 625), rep(0, 2500))
+type.vec <- c(rep("B-MM", 625), rep("C-MU", 625), rep("B-MM", 625), rep("A-MR", 625), rep("E-FU", 1250), rep("D-FR", 1250))
+
+nw_migrations <- set.vertex.attribute(nw_migrations, "sex", sex.vec)
+nw_migrations <- set.vertex.attribute(nw_migrations, "loc", loc.vec)
+nw_migrations <- set.vertex.attribute(nw_migrations, "mig_stat", mig.vec)
+nw_migrations <- set.vertex.attribute(nw_migrations, "type", type.vec)
+
+```
+
+
+The formation model is 
+```{r}
+formation <- ~edges + nodemix("type", base = c(8))
+```
+The target statistics are 
+```{r}
+target.stats <- c(3000, 0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0, 0)
+
+```
+
+We then run netest.
+
+```{r}
+est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100))
+
+```
+
+So far everything seems ok. But trying to run diagnostics causes a problem. I don't know how to fix this, since as far as I can tell I haven't done anything out of the ordinary.
+
+
+```{r error = TRUE}
+dx <- netdx(est_migrations, nsims = 1, nsteps = 5000)
+```
+
+But let's assume that the fit is good. Now we try running some simulations. The auxiliary functions require six parameters (the values are somewhat arbitrary, since they are only for debugging purposes):
+
+```{r}
+param <- param.net(death.rate.gen = 0.01, death.rate.aids = 0.03, migration.rate = 1, birth.rate = 1, late.cutoff = 10, inf.prob = 0.15)
+```
+
+We specify the modules to be run:
+
+```{r include = FALSE}
+source('~/circularmigrations/epimodel/network/migration.R')
+source('~/circularmigrations/epimodel/network/infection.R')
+source('~/circularmigrations/epimodel/network/births.R')
+source('~/circularmigrations/epimodel/network/deaths.R')
+source('~/circularmigrations/epimodel/network/get_prev.R')
+
+```
+
+
+```{r}
+control <- control.net(type="SI", nsims = 1, nsteps = 10, deaths.FUN = deaths, births.FUN = births, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, depend = TRUE)
+```
+
+And we specify the initial infected (randomly chosen to be about 10% of the population):
+
+```{r}
+status.vector <- rbinom(5000, 1, 0.1)
+status.vector <- replace(status.vector, status.vector == 0, "s")
+status.vector <- replace(status.vector, status.vector == 1, "i")
+init <- init.net(status.vector = status.vector)
+```
+
+
+
+Now we try running the simulation twice:
+
+```{r error = TRUE}
+netsim(est_migrations, param, init, control)
+```
+
+```{r error = TRUE}
+netsim(est_migrations, param, init, control)
+```
+
+It seems from the error that the 6 parameters in the param object are not getting passed in simulate.network. Even stranger is the fact that everything seems to work at some time steps, but not others. I don't know what to make of this. My understanding is that this part of the code should be unaffected by the stochasticity of the simulation, and therefore should run the same way each time. Any idea what's going on?
+
