@@ -5,6 +5,7 @@ migration <- function(dat, at) {
   loc_vec <- get.vertex.attribute(dat$nw, "loc")
   migrants <- which(mig_stat_vec == 1) 
   n = length(migrants)
+  if (n > 0) {
   temp <- rbinom(n, 1, migration.rate)
   
   for (i in 1:n) {
@@ -18,6 +19,6 @@ migration <- function(dat, at) {
         
     }
   }
-  
+  }
   return(dat)
 }

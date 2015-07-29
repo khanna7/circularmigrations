@@ -17,37 +17,37 @@ births <- function(dat, at) {
   if (births.mmu > 0) {
   for (i in 1:births.mmu) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=1, loc=0, mig_stat=1)))
+                             list(list(sex=1, loc=0, mig_stat=1, type = "B-MM")))
   }
   }
   if (births.mmr > 0) {
   for (i in 1:births.mmr) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=1, loc=1, mig_stat=1)))
+                             list(list(sex=1, loc=1, mig_stat=1, type = "B-MM")))
   }
   }
   if (births.nfu > 0) {
   for (i in 1:births.nfu) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=0, loc=0, mig_stat=0)))
+                             list(list(sex=0, loc=0, mig_stat=0, type = "E-FU")))
   }
   }
   if (births.nfr > 0) {
   for (i in 1:births.nfr) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=0, loc=1, mig_stat=0)))
+                             list(list(sex=0, loc=1, mig_stat=0, type = "D-FR")))
   }
   }
   if (births.nmu > 0) {
   for (i in 1:births.nmu) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=1, loc=0, mig_stat=0)))
+                             list(list(sex=1, loc=0, mig_stat=0, type = "C-MU")))
   }
   }
   if (births.nmr > 0) {
   for (i in 1:births.nmr) {
     dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                             list(list(sex=1, loc=1, mig_stat=0)))
+                             list(list(sex=1, loc=1, mig_stat=0), type = "A-MR"))
   }
   }
   if (births.total > 0) {
