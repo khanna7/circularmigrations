@@ -14,7 +14,7 @@ target.stats <- c(3000, 0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0
 
 est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100))
 
-param <- param.net(death.rate.gen = 1/(45*52), death.rate.aids = 1/40, migration.rate = 1/30, birth.rate = 1250/(45*52), late.cutoff = 512, inf.prob = c(rep(1-(1-.0007*26)^3, 12), rep(1-(1-.0007)^3, 500), rep(1-(1-.0007*7)^3, 40)))
+param <- param.net(death.rate.gen = 1/(45*52), death.rate.aids = 1/40, migration.rate = 1/30, birth.rate = 8*1250/(45*52), late.cutoff = 512, inf.prob = c(rep(1-(1-.0007*26)^3, 12), rep(1-(1-.0007)^3, 500), rep(1-(1-.0007*7)^3, 40)))
 
 source('~/circularmigrations/epimodel/network/migration.R')
 source('~/circularmigrations/epimodel/network/infection.R')
@@ -23,7 +23,7 @@ source('~/circularmigrations/epimodel/network/deaths.R')
 source('~/circularmigrations/epimodel/network/get_prev.R')
 source('~/circularmigrations/epimodel/network/initialize_net.R')
 
-control <- control.net(type="SI", nsims = 1, nsteps = 25, initialize.FUN = initialize.net.mig, deaths.FUN = deaths, births.FUN = births, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, depend = TRUE)
+control <- control.net(type="SI", nsims = 1, nsteps = 500, initialize.FUN = initialize.net.mig, deaths.FUN = deaths, births.FUN = births, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, depend = TRUE)
 #status.vector <- rbinom(5000, 1, 0.1)
 #status.vector <- replace(status.vector, status.vector == 0, "s")
 #status.vector <- replace(status.vector, status.vector == 1, "i")
