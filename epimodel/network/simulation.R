@@ -14,6 +14,8 @@ target.stats <- c(3000, 0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0
 
 est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100))
 
+#dx <- netdx(est_migrations, nsteps = 1500, nsims = 1)
+
 param <- param.net(death.rate.gen = 1/(45*52), death.rate.aids = 1/40, migration.rate = 1/30, birth.rate = 8*1250/(45*52), late.cutoff = 512, inf.prob = c(rep(1-(1-.0007*26)^2.4, 12), rep(1-(1-.0007)^2.4, 500), rep(1-(1-.0007*7)^2.4, 40)))
 
 source('~/circularmigrations/epimodel/network/migration.R')

@@ -7,10 +7,10 @@ deaths <- function (dat, at) {
   death.vec <- NULL
   if (n > 0) {
     for (i in 1:n) {
-      if (dat$attr$status[i] == "s") {
+      if (dat$attr$status[active.vertices[i]] == "s") {
         death.vec[i] <- rbinom(1, 1, death.rate.gen)
       } else {
-        if (dat$attr$infTime[i] > late.cutoff) {
+        if (dat$attr$infTime[active.vertices[i]] > late.cutoff) {
           death.vec[i] <- rbinom(1, 1, death.rate.late)
         } else {
           death.vec[i] <- rbinom(1, 1, death.rate.gen)
@@ -18,7 +18,13 @@ deaths <- function (dat, at) {
       }
     }
     
-    death.ids <- which(death.vec == 1)
+    #death.ids <- which(death.vec == 1)
+    death.ids <- NULL
+    for (i in 1:n) {
+      if (death.vec[i] == 1) {
+        death.ids <- c(death.ids, active.vertices[i])
+      }
+    }
     m <- length(death.ids)
     
     if (m > 0) {
