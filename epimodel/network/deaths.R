@@ -10,10 +10,14 @@ deaths <- function (dat, at) {
       if (dat$attr$status[active.vertices[i]] == "s") {
         death.vec[i] <- rbinom(1, 1, death.rate.gen)
       } else {
-        if (dat$attr$infTime[active.vertices[i]] > late.cutoff) {
-          death.vec[i] <- rbinom(1, 1, death.rate.late)
+        if ((at - dat$attr$infTime[active.vertices[i]]) > 552) {
+          death.vec[i] <- 1
         } else {
+          if (((at - dat$attr$infTime[active.vertices[i]]) <= 552) && ((at - dat$attr$infTime[active.vertices[i]]) >= late.cutoff)) {
+            death.vec[i] <- rbinom(1, 1, death.rate.late)
+          } else {
           death.vec[i] <- rbinom(1, 1, death.rate.gen)
+          }
         }
       }
     }

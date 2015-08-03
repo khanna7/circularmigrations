@@ -54,6 +54,8 @@ initialize.net.mig <- function (x, param, init, control, s)
   
   #Nathan's modifications for nonzero inital time since infection
   
+  if (control$start == 1) {
+  
   init.infected.urban.women <- sample(2501:3750, 100, replace = FALSE)
   init.infected.rural.women <- sample(3751:5000, 100, replace = FALSE)
   init.infected.total <- c(init.infected.urban.women, init.infected.rural.women)
@@ -63,6 +65,7 @@ initialize.net.mig <- function (x, param, init, control, s)
     dat$attr$infTime[init.infected.total[i]] <- -init.infTime[i]
   }
   
+  }
   
   
   return(dat)
