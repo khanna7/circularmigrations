@@ -225,7 +225,7 @@ get_prev <- function (dat, at)
 #Begin Nathan's code. From the old summary_statistics function.
 #Moved within get_prev so that this code would be called
 #at the end of the simulation
-  nw.active <- dat$attr$active
+  nw.active <- which(dat$attr$active == 1)
   nw.sex <- intersect(nw.active, get.vertex.attribute(dat$nw, "sex"))
   nw.loc <- intersect(nw.active, get.vertex.attribute(dat$nw, "loc"))
   nw.mig_stat <- intersect(nw.active, get.vertex.attribute(dat$nw, "mig_stat"))
@@ -299,6 +299,16 @@ get_prev <- function (dat, at)
     dat$epi$prevalence[at] <- length(nw.infected)/length(nw.active)
   }
   
+  #dat$nw <- deactivate.vertices(dat$nw, onset = at, terminus = Inf, v = nw.active, deactivate.edges = TRUE)
+  if (at == 1) {
+    dat$epi$mean_deg <- network.edgecount(dat$nw)/network.size(dat$nw)
+    dat$epi$size <- network.size(dat$nw)
+    dat$epi$edges <- network.edgecount(dat$nw)
+  } else {
+    dat$epi$mean_deg[at] <- network.edgecount(dat$nw)/network.size(dat$nw)
+    dat$epi$size[at] <- network.size(dat$nw)
+    dat$epi$edges[at] <- network.edgecount(dat$nw)
+  }
   
   return(dat)
 }

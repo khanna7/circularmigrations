@@ -25,7 +25,7 @@ source('~/circularmigrations/epimodel/network/deaths.R')
 source('~/circularmigrations/epimodel/network/get_prev.R')
 source('~/circularmigrations/epimodel/network/initialize_net.R')
 
-control <- control.net(type="SI", nsims = 1, nsteps = 500, initialize.FUN = initialize.net.mig, deaths.FUN = deaths, births.FUN = births, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, depend = TRUE)
+control <- control.net(type="SI", nsims = 1, nsteps = 200, initialize.FUN = initialize.net.mig, deaths.FUN = deaths, births.FUN = births, edges_correct.FUN = edges_correct, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, verbose.FUN = verbose, depend = TRUE)
 #status.vector <- rbinom(5000, 1, 0.1)
 #status.vector <- replace(status.vector, status.vector == 0, "s")
 #status.vector <- replace(status.vector, status.vector == 1, "i")
