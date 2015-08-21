@@ -139,7 +139,7 @@ late.stage.begin=acute.chronic.transition+chronic.late.transition
 burnin.sim.network <- 25e3
 
 ntimesteps <- 5e3
-net <- network.crosssection(net, max(net%v%"active")-1)
+net <- net
 popsize <- network.size(net)
 
 net %v% "vertex.names" <- 1:popsize
@@ -147,7 +147,7 @@ net <- activate.vertices(net, onset=0, terminus=1,
                            v=1:popsize)
 net <- activate.edges(net, onset=0, terminus=1,
                       e=1:network.edgecount(net))
-activenet <- network.crosssection(net, 0)
+activenet <- net
 
 #####################################################
 
@@ -174,6 +174,7 @@ cum.nets <- list() # object to store cumulative network
 #####################################################
 ### Time-Loop
 #####################################################
+##debug(transmission)
 
 for (timestep in 1:ntimesteps){
 
@@ -199,27 +200,27 @@ for (timestep in 1:ntimesteps){
       "total number of edges is ", network.edgecount(net), ",\n", 
       "at time-step " , curr.time,  ".\n")
 
-  activenet <- network.crosssection(net, curr.time)
+  activenet <- network.collapse(net, at=curr.time)
   
-  net <- update.network(net=net,
-                        curr.time=curr.time,
-                        theta.network=theta.network,
-                        burnin.sim.network=burnin.sim.network, # put in run file
-                        diss.network=diss.network,
-                        gamma.network=gamma.network,
-                        formula.network.w.offset=formula.network.w.offset,
-                        constraints.network=constraints.network,
-                        activenet=activenet,
-                        dyninterval=dyninterval
-  ##                  ## steve also has steady.model.change
-  ##                  ## but that is not relevant here
-                        )
+  ## net <- update.network(net=net,
+  ##                       curr.time=curr.time,
+  ##                       theta.network=theta.network,
+  ##                       burnin.sim.network=burnin.sim.network, # put in run file
+  ##                       diss.network=diss.network,
+  ##                       gamma.network=gamma.network,
+  ##                       formula.network.w.offset=formula.network.w.offset,
+  ##                       constraints.network=constraints.network,
+  ##                       activenet=activenet,
+  ##                       dyninterval=dyninterval
+  ## ##                  ## steve also has steady.model.change
+  ## ##                  ## but that is not relevant here
+  ##                       )
 
    ## save cumulative network object
    cum.nets <- net
    save(cum.nets, file=real_time_cumnet)
    
-  active.net.updated <- network.crosssection(net, curr.time)
+  active.net.updated <- network.collapse(net, at=curr.time)
   cat("Number of alive edges is ", length(active.net.updated$mel), ".\n")
 
   net <- transmission(net=net,

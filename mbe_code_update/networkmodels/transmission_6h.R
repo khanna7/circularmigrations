@@ -47,8 +47,9 @@ transmission <- function(net,
   ## pop <- net
 
   net <- net
-  pop <-  network.crosssection(net,onset=curr.time)
-
+  ##pop <-  network.collapse(net, at=curr.time)
+  pop <- net
+  
   migrant_males <- which(get.vertex.attribute(pop, "type")==
                         "B-MM")
   num_migrant_males <- length(migrant_males)
@@ -103,9 +104,8 @@ transmission <- function(net,
   late.prob.week <- 1-(1-late.prob)^c
 
   ## p1 infected, p2 uninfected
-  pop <- network.crosssection(net, onset=curr.time) # to make sure
-                                        # everything is updated from
-                                        # net to pop
+  pop <- net
+  
   el <- as.edgelist(pop)
   p1.inf <- intersect(which((get.vertex.attribute(pop, "inf.status")
                              [el[,1]]==1)),
@@ -132,7 +132,7 @@ transmission <- function(net,
   ##browser()
 
 
-  
+  total.new.infections <- 0  
   if(length(p1.inf.samel.p2)>0){
     ## define p1's in same locations with p2's
     
@@ -236,25 +236,16 @@ transmission <- function(net,
                        ((network.vertex.names(pop) # check this -- should be pop
                          )[el[p1.inf.samel.p2[newinf.chronic.p2],2]]
                         ))
-  }
+    
+    newinfp2 <- union(el[p1.inf.samel.p2[newinf.acute.p2],2],
+                      union(el[p1.inf.samel.p2[newinf.chronic.p2],2],
+                            el[p1.inf.samel.p2[newinf.late.p2],2])
+                      ) 
 
-  newinfp2 <- union(el[p1.inf.samel.p2[newinf.acute.p2],2],
-                    union(el[p1.inf.samel.p2[newinf.chronic.p2],2],
-                          el[p1.inf.samel.p2[newinf.late.p2],2])
-                    ) 
+    length.newinfp2 <- length(newinfp2)
+    total.new.infections <- length.newinfp2
 
-  length.newinfp2 <- length(newinfp2)
-
-  total.new.infections <- length(newinfp2)
-                                        # place-holder for
-                                        # recording incidence
-                                        # will be updated if
-                                        # there are new infections
-                                        # from p1 to p2
-  
-  ##assign("length.newinfp2", length(newinfp2), envir=.GlobalEnv)
-
-  newinfp2.ptns <- union(el[p1.inf.samel.p2[newinf.acute.p2],1],
+      newinfp2.ptns <- union(el[p1.inf.samel.p2[newinf.acute.p2],1],
                          union(el[p1.inf.samel.p2[newinf.chronic.p2],1],
                                el[p1.inf.samel.p2[newinf.late.p2],1])
                       )
@@ -269,11 +260,17 @@ transmission <- function(net,
       length(c(newinf.acute.p2, newinf.late.p2, newinf.chronic.p2)),
       "\n"
       )
+
+  }
+
+  
+  ##assign("length.newinfp2", length(newinfp2), envir=.GlobalEnv)
+
   ##browser();
 
   ## may need to redefine 'pop' here since attributes in
   ## net have been updated
-  pop <- network.crosssection(net, onset=curr.time)
+  ##pop <- network.collapse(net, at=curr.time)
   
   ## where p2 is the infected one
   p2.inf <- intersect(which((get.vertex.attribute(pop, "inf.status")

@@ -9,8 +9,8 @@ nw_migrations <- set.vertex.attribute(nw_migrations, "sex", sex.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "loc", loc.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "mig_stat", mig.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "type", type.vec)
-formation <- ~edges + nodemix("type", base = c(-1, -2, -3, -4, -5, -6, -7, -9, -10, -11, -12, -13, -14, -15))
-target.stats <- c(3000, 0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0, 0)
+formation <- ~edges #+ nodemix("type", base = c(-1, -2, -3, -4, -5, -6, -7, -9, -10, -11, -12, -13, -14, -15))
+target.stats <- c(3000) #0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0, 0)
 
 est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100))
 

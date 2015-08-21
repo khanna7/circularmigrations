@@ -74,12 +74,12 @@ library(ergm)
 load(file="est_dur100_meandeg12.RData")
 
 source("../MSM.common.functions.R")
-source("../networkDynamic.access.R")
-source("../networkDynamic.simulation.R")
-source("../networkDynamic.cross.section.R")
-source("../networkDynamic.zzz.R")
+#source("../networkDynamic.access.R")
+#source("../networkDynamic.simulation.R")
+#source("../networkDynamic.cross.section.R")
+#source("../networkDynamic.zzz.R")
 
-source("../vital_dynamics_d7_nokstar.R") # 24 Mar 12: this vresion should
+source("../vital_dynamics_d6a.R") # 24 Mar 12: this vresion should
 # have no k-star term
 ##source("../migration_wrapper_d1.R")
 source("../transmission_6h.R")
@@ -134,7 +134,7 @@ late.stage.begin=acute.chronic.transition+chronic.late.transition
 burnin.sim.network <- 25e3
 
 ntimesteps <- 5e3
-net <- network.crosssection(net, max(net%v%"active")-1)
+net <- network.extract(net, max(net%v%"active")-1)
 popsize <- network.size(net)
 
 net %v% "vertex.names" <- 1:popsize
@@ -142,7 +142,7 @@ net <- activate.vertices(net, onset=0, terminus=1,
                            v=1:popsize)
 net <- activate.edges(net, onset=0, terminus=1,
                       e=1:network.edgecount(net))
-activenet <- network.crosssection(net, 0)
+activenet <- network.extract(net, at = 0)
 
 #####################################################
 
@@ -194,7 +194,7 @@ for (timestep in 1:ntimesteps){
       "total number of edges is ", network.edgecount(net), ",\n", 
       "at time-step " , curr.time,  ".\n")
 
-  activenet <- network.crosssection(net, curr.time)
+  activenet <- network.extract(net, at = curr.time)
   
   net <- update.network(net=net,
                         curr.time=curr.time,
@@ -214,7 +214,7 @@ for (timestep in 1:ntimesteps){
    cum.nets <- net
    save(cum.nets, file=real_time_cumnet)
    
-  active.net.updated <- network.crosssection(net, curr.time)
+  active.net.updated <- network.extract(net, at = curr.time)
   cat("Number of alive edges is ", length(active.net.updated$mel), ".\n")
 
   net <- transmission(net=net,
