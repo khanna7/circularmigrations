@@ -20,7 +20,7 @@ nw_migrations <- set.vertex.attribute(nw_migrations, "type", type.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "rest.urb", restriction.vec.urban)
 nw_migrations <- set.vertex.attribute(nw_migrations, "rest.rur", restriction.vec.rural)
 formation <- ~edges + nodemix("type", base = c(-1, -2, -3, -4, -5, -6, -7, -9, -10, -11, -12, -13, -14, -15)) + kstar(2:9, "rest.urb") + kstar(2:9, "rest.rur")
-target.stats <- c(3000, 0, rep(0, 2), rep(0, 3), 500, rep(0, 2), 0, 1000, 500, 0, 0, rep(0, 16))
+target.stats <- c(2500, 0, rep(0, 2), rep(0, 3), 417, rep(0, 2), 0, 833, 417, 0, 0, rep(0, 16))
 
 est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100, 1/(45*52)))
 
