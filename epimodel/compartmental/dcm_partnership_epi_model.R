@@ -153,15 +153,15 @@ param <- param.dcm(t.mmu = 2*2.4/(n*d), t.mmr = 2*2.4/(n*d), t.nmu = 2.4/(n*d), 
                    beta.a.m = 1-(1-pA)^(n*d/2), beta.a.n = 1-(1-pA)^(n*d), beta.c.m = 1-(1-pC)^(n*d/2),
                    beta.c.n = 1-(1-pC)^(n*d), beta.l.m = 1-(1-pL)^(n*d/2), beta.l.n = 1-(1-pL)^(n*d),
                    gamma = 1/12, eta = 1/500, mu = 1/(45*52), mu.d = 1/40,
-                   nu = 625/(45*52), delta = 1/30)
+                   nu = 625/(45*52), delta = 1/3)
 
 init <- init.dcm(s.mmu=625, a.mmu=0, c.mmu=0, l.mmu=0,
-                 s.nfu=1000, a.nfu=(10/500*100)/2, c.nfu=(460/500*100)/2, l.nfu=(30/500*100)/2,
+                 s.nfu=1000, a.nfu=(10/2)/500*200, c.nfu=(460/2)/500*200, l.nfu=((30)/2)/500*200,
                  s.nmu=625, a.nmu=0, c.nmu=0, l.nmu=0, 
                  s.mmr=625, a.mmr=0, c.mmr=0, l.mmr=0,
-                 s.nfr=1000, a.nfr=(10/500*100)/2, c.nfr=(460/500*100)/2, l.nfr=(30/500*100)/2,
+                 s.nfr=1000, a.nfr=(10/2)/500*200, c.nfr=(460/2)/500*200, l.nfr=(30/2)/500*200,
                  s.nmr=625, a.nmr=0, c.nmr=0, l.nmr=0)
 
 control <- control.dcm(nsteps=5000, new.mod=infCaP)
 
-mod <- dcm(param, init, control)
+mod2_3 <- dcm(param, init, control)
