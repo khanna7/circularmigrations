@@ -19,8 +19,8 @@ nw_migrations <- set.vertex.attribute(nw_migrations, "mig_stat", mig.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "type", type.vec)
 nw_migrations <- set.vertex.attribute(nw_migrations, "rest.urb", restriction.vec.urban)
 nw_migrations <- set.vertex.attribute(nw_migrations, "rest.rur", restriction.vec.rural)
-formation <- ~edges + nodemix("type", base = c(-1, -2, -3, -4, -5, -6, -7, -9, -10, -11, -12, -13, -14, -15)) + kstar(2:9, "rest.urb") + kstar(2:9, "rest.rur")
-target.stats <- c(2500, 0, rep(0, 2), rep(0, 3), 417, rep(0, 2), 0, 833, 417, 0, 0, rep(0, 16))
+formation <- ~edges + nodemix("type", base = c(-1, -2, -3, -4, -5, -6, -7, -9, -10, -11, -12, -13, -14, -15)) + kstar(2, "rest.urb") + kstar(2, "rest.rur")
+target.stats <- c(2500, 0, rep(0, 2), rep(0, 3), 417, rep(0, 2), 0, 833, 417, 0, 0, rep(0, 2))
 
 est_migrations <- netest(nw_migrations, formation = formation, target.stats = target.stats, coef.diss = dissolution_coefs(~offset(edges), 100, 1/(45*52)))
 
@@ -28,23 +28,24 @@ est_migrations <- netest(nw_migrations, formation = formation, target.stats = ta
 
 #param <- param.net(death.rate.gen = 1/(45*52), death.rate.aids = 1/40, migration.rate = 1/30, birth.rate = 8*625/(45*52), late.cutoff = 512, inf.prob = c(rep(1-(1-.0007*26)^3, 12), rep(1-(1-.0007)^3, 500), rep(1-(1-.0007*7)^3, 40)))
 
-#source('Projects/circularmigrations/epimodel/network/migration.R')
-#source('Projects/circularmigrations/epimodel/network/infection.R')
-#source('Projects/circularmigrations/epimodel/network/births.R')
-#source('Projects/circularmigrations/epimodel/network/deaths.R')
-#source('Projects/circularmigrations/epimodel/examples/get_prev_example_2.R')
-#source('Projects/circularmigrations/epimodel/network/initialize_net.R')
-#source('Projects/circularmigrations/epimodel/examples/verbose_example.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/migration_restricted.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/infection_restricted.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/births_restricted.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/deaths_restricted.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/get_prev__restricted_example_4.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/initialize_net_restricted.R')
+source('Projects/circularmigrations/epimodel/network/Restricted_Model/verbose_restricted_example.R')
 
 
 #control <- control.net(type="SI", nsims = 1, nsteps = 200, initialize.FUN = initialize.net.mig, deaths.FUN = deaths, births.FUN = births, edges_correct.FUN = edges_correct, infection.FUN = infection, migration.FUN = migration, get_prev.FUN = get_prev, verbose.FUN = verbose, depend = TRUE)
-#control <- control.net(type = "SI", nsims = 1, nsteps = 5000, initialize.FUN = initialize.net.mig,
-                       #deaths.FUN = deaths, births.FUN = births, infection.FUN = infection, migration.FUN = migration,
-                       #get_prev.FUN = get_prev_example_4,
-                       #verbose.FUN = verbose_example, depend = TRUE)
+control <- control.net(type = "SI", nsims = 1, nsteps = 5000, initialize.FUN = initialize.net.mig,
+                       deaths.FUN = deaths, births.FUN = births, infection.FUN = infection,
+                       migration.FUN = migration,
+                       get_prev.FUN = get_prev_example_4,
+                       verbose.FUN = verbose_example, depend = TRUE)
 #status.vector <- rbinom(5000, 1, 0.1)
 #status.vector <- replace(status.vector, status.vector == 0, "s")
 #status.vector <- replace(status.vector, status.vector == 1, "i")
-#init <- init.net(i.num = 0)
+init <- init.net(i.num = 0)
 
-#mod <- netsim(est_migrations, param, init, control)
+mod <- netsim(est_migrations, param, init, control)
