@@ -276,25 +276,25 @@ get_prev_example_4 <- function (dat, at)
   #write.csv(time.step, "time.step.csv")
   
   prev <- data.frame(prev = dat$epi$prev.as.percent)
-  write.csv(prev, "prev_4.csv")
+  write.csv(prev, filename=paste(nsim_, "prev_4.csv", sep=""))
   
   pop <- data.frame(pop = dat$epi$size)
-  write.csv(pop, "pop_4.csv")
+  write.csv(pop, filename=paste(nsim_, "pop_4.csv", sep=""))
   
   mean_deg <- data.frame(mean_deg = dat$epi$mean_deg)
-  write.csv(mean_deg, "mean_deg_4.csv")
+  write.csv(mean_deg, filename=paste(nsim_, "mean_deg_4.csv", sep=""))
   
   incidence <- data.frame(incidence = dat$epi$si.flow)
-  write.csv(incidence, "incidence_4.csv")
+  write.csv(incidence, filename=paste(nsim_, "incidence_4.csv", sep=""))
   
   births <- data.frame(births = dat$epi$b.total)
-  write.csv(births, "births_4.csv")
+  write.csv(births, filename=paste(nsim_, "births_4.csv", sep=""))
   
   deaths.tot <- data.frame(deaths.tot = dat$epi$tot.deaths)
-  write.csv(deaths.tot, "deaths_tot_4.csv")
+  write.csv(deaths.tot, filename=paste(nsim_, "deaths_tot_4.csv", sep=""))
   
   late.stage.deaths <- data.frame(late.stage.deaths = dat$epi$late.stage.deaths)
-  write.csv(late.stage.deaths, "late_deaths_4.csv")
+  write.csv(late.stage.deaths, filename=paste(nsim_, "late_deaths_4.csv", sep=""))
   
   #natural.deaths <- data.frame(natural.deaths = dat$epi$natural.deaths)
   #write.csv(natural.deaths, "natural_deaths.csv")
@@ -309,7 +309,7 @@ get_prev_example_4 <- function (dat, at)
   #write.csv(women, "women.csv")
   
   inf <- data.frame(inf = dat$epi$i.num)
-  write.csv(inf, "inf_4.csv")
+  write.csv(inf, filename=paste(nsim, "inf_4.csv", sep=""))
   
   #inf.women <- data.frame(inf.women = dat$epi$inf.women)
   #write.csv(inf.women, "inf_women.csv")
