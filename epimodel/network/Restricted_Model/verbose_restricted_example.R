@@ -24,6 +24,7 @@ verbose_example <- function (x, type, s = 1, at = 2)
           cat("\nEdge Count: ", x$epi$edge_count[at])
           cat("\nMean Degree: ", x$epi$mean_deg[at])
           cat("\nSize: ", x$epi$size[at])
+          cat("\nMixing Matrix Urban: ", x$epi$mixing_matrix_urban[at])
         }
         if (x$param$modes == 2) {
           cat("\nIncidence:", x$epi$si.flow[at] + x$epi$si.flow.m2[at])
@@ -94,6 +95,7 @@ verbose_example <- function (x, type, s = 1, at = 2)
           }
         }
         cat("\n----------------------------")
+        #cat(mixingmatrix(x$dat$nw, "rest.urb")$matrix)
       }
     }
   }

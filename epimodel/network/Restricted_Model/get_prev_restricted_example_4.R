@@ -225,11 +225,13 @@ get_prev_example_4 <- function (dat, at)
     dat$epi$size <- network.size(network.extract(dat$nw, at = 1))
     dat$epi$mean_deg <- 2*dat$epi$edge_count/length(which(dat$attr$active == 1))
     dat$epi$prev.as.percent <- dat$epi$i.num[at]/dat$epi$size
+    dat$epi$mixing_matrix_urban <- mixingmatrix(network.extract(dat$nw, at = 1), "rest.urb")$matrix[1, 1]
   } else {
     dat$epi$edge_count[at] <- network.edgecount(network.extract(dat$nw, at = at))
     dat$epi$size[at] <- network.size(network.extract(dat$nw, at = at))
     dat$epi$mean_deg[at] <- 2*dat$epi$edge_count[at]/length(which(dat$attr$active == 1))
     dat$epi$prev.as.percent[at] <- dat$epi$i.num[at]/dat$epi$size[at]
+    dat$epi$mixing_matrix_urban[at] <- mixingmatrix(network.extract(dat$nw, at=at), "rest.urb")$matrix[1, 1]
   }
   
   active.vertices <- which(active == 1)
@@ -275,26 +277,26 @@ get_prev_example_4 <- function (dat, at)
   #time.step <- data.frame(time.step = c(1:at))
   #write.csv(time.step, "time.step.csv")
   
-  prev <- data.frame(prev = dat$epi$prev.as.percent)
-  write.csv(prev, filename=paste(nsim_, "prev_4.csv", sep=""))
-  
-  pop <- data.frame(pop = dat$epi$size)
-  write.csv(pop, filename=paste(nsim_, "pop_4.csv", sep=""))
-  
-  mean_deg <- data.frame(mean_deg = dat$epi$mean_deg)
-  write.csv(mean_deg, filename=paste(nsim_, "mean_deg_4.csv", sep=""))
-  
-  incidence <- data.frame(incidence = dat$epi$si.flow)
-  write.csv(incidence, filename=paste(nsim_, "incidence_4.csv", sep=""))
-  
-  births <- data.frame(births = dat$epi$b.total)
-  write.csv(births, filename=paste(nsim_, "births_4.csv", sep=""))
-  
-  deaths.tot <- data.frame(deaths.tot = dat$epi$tot.deaths)
-  write.csv(deaths.tot, filename=paste(nsim_, "deaths_tot_4.csv", sep=""))
-  
-  late.stage.deaths <- data.frame(late.stage.deaths = dat$epi$late.stage.deaths)
-  write.csv(late.stage.deaths, filename=paste(nsim_, "late_deaths_4.csv", sep=""))
+#   prev <- data.frame(prev = dat$epi$prev.as.percent)
+#   write.csv(prev, filename=paste(nsim_, "prev_4.csv", sep=""))
+#   
+#   pop <- data.frame(pop = dat$epi$size)
+#   write.csv(pop, filename=paste(nsim_, "pop_4.csv", sep=""))
+#   
+#   mean_deg <- data.frame(mean_deg = dat$epi$mean_deg)
+#   write.csv(mean_deg, filename=paste(nsim_, "mean_deg_4.csv", sep=""))
+#   
+#   incidence <- data.frame(incidence = dat$epi$si.flow)
+#   write.csv(incidence, filename=paste(nsim_, "incidence_4.csv", sep=""))
+#   
+#   births <- data.frame(births = dat$epi$b.total)
+#   write.csv(births, filename=paste(nsim_, "births_4.csv", sep=""))
+#   
+#   deaths.tot <- data.frame(deaths.tot = dat$epi$tot.deaths)
+#   write.csv(deaths.tot, filename=paste(nsim_, "deaths_tot_4.csv", sep=""))
+#   
+#   late.stage.deaths <- data.frame(late.stage.deaths = dat$epi$late.stage.deaths)
+#   write.csv(late.stage.deaths, filename=paste(nsim_, "late_deaths_4.csv", sep=""))
   
   #natural.deaths <- data.frame(natural.deaths = dat$epi$natural.deaths)
   #write.csv(natural.deaths, "natural_deaths.csv")
@@ -308,8 +310,8 @@ get_prev_example_4 <- function (dat, at)
   #women <- data.frame(women = dat$epi$women)
   #write.csv(women, "women.csv")
   
-  inf <- data.frame(inf = dat$epi$i.num)
-  write.csv(inf, filename=paste(nsim, "inf_4.csv", sep=""))
+#   inf <- data.frame(inf = dat$epi$i.num)
+#   write.csv(inf, filename=paste(nsim, "inf_4.csv", sep=""))
   
   #inf.women <- data.frame(inf.women = dat$epi$inf.women)
   #write.csv(inf.women, "inf_women.csv")
