@@ -1,6 +1,7 @@
 #3 contacts per week
 #with death correction
 #migration rate = 1/30
+
 library(EpiModel)
 
 N <- 1000*5
@@ -20,8 +21,8 @@ nw_migrations <- network.initialize(5000, directed = FALSE)
 sex.vec <- c(rep(1, 2500), rep(0, 2500))
 loc.vec <- c(rep(0, 1250), rep(1, 1250), rep(0, 1250), rep(1, 1250))
 mig.vec <- c(rep(1, 625), rep(0, 625), rep(1, 625), rep(0, 625), rep(0, 2500))
-type.vec <- c(rep("B-MM", 625), rep("C-MU", 625), rep("B-MM", 625), 
-              rep("A-MR", 625), rep("E-FU", 1250), rep("D-FR", 1250))
+type.vec <- c(rep("A-MR", 625), rep("B-MM", 625), rep("B-MM", 625),
+                  rep("C-MU", 625), rep("D-FR", 1250), rep("E-FU", 1250))
 
 # restriction.vec.urban <- c(rep(0, 625), rep(1, 625), rep(0, 625), rep(2, 625), rep(0, 1250), rep(3, 1250))
 # restriction.vec.rural <- c(rep(0, 625), rep(1, 625), rep(0, 625), rep(2, 625), rep(3, 1250), rep(0, 1250))
