@@ -25,6 +25,7 @@ verbose_example <- function (x, type, s = 1, at = 2)
           cat("\nMean Degree: ", x$epi$mean_deg[at])
           cat("\nSize: ", x$epi$size[at])
           cat("\nMixing Matrix Urban: ", x$epi$mixing_matrix_urban[at])
+          cat("\nMixing Matrix Rural: ", x$epi$mixing_matrix_rural[at])
         }
         if (x$param$modes == 2) {
           cat("\nIncidence:", x$epi$si.flow[at] + x$epi$si.flow.m2[at])

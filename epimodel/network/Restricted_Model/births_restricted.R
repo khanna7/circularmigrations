@@ -17,37 +17,37 @@ births <- function(dat, at) {
   if (births.mmu > 0) {
     for (i in 1:births.mmu) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=1, loc=0, mig_stat=1, type = "B-MM", rest.urb = 0, rest.rur = 0)))
+                               list(list(sex=1, loc=0, mig_stat=1, type = "B-MM", migmalemix.urban = "2MMU.MIX", migmalemix.rural = "B-MMR.MIX")))
     }
   }
   if (births.mmr > 0) {
     for (i in 1:births.mmr) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=1, loc=1, mig_stat=1, type = "B-MM", rest.urb = 0, rest.rur = 0)))
+                               list(list(sex=1, loc=1, mig_stat=1, type = "B-MM", migmalemix.urban = "2MMU.MIX", migmalemix.rural = "B-MMR.MIX")))
     }
   }
   if (births.nfu > 0) {
     for (i in 1:births.nfu) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=0, loc=0, mig_stat=0, type = "E-FU", rest.urb = 0, rest.rur = 3)))
+                               list(list(sex=0, loc=0, mig_stat=0, type = "E-FU", migmalemix.urban = "2MMU.MIX", migmalemix.rural = "D-Z")))
     }
   }
   if (births.nfr > 0) {
     for (i in 1:births.nfr) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=0, loc=1, mig_stat=0, type = "D-FR", rest.urb = 3, rest.rur = 0)))
+                               list(list(sex=0, loc=1, mig_stat=0, type = "D-FR", migmalemix.urban = "4Z", migmalemix.rural = "B-MMR.MIX")))
     }
   }
   if (births.nmu > 0) {
     for (i in 1:births.nmu) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=1, loc=0, mig_stat=0, type = "C-MU", rest.urb = 1, rest.rur = 1)))
+                               list(list(sex=1, loc=0, mig_stat=0, type = "C-MU", migmalemix.urban = "3Y", migmalemix.rural = "C-Y")))
     }
   }
   if (births.nmr > 0) {
     for (i in 1:births.nmr) {
       dat$nw <- add.vertices(dat$nw, nv=1, vattr = 
-                               list(list(sex=1, loc=1, mig_stat=0), type = "A-MR", rest.urb = 2, rest.rur = 2))
+                               list(list(sex=1, loc=1, mig_stat=0), type = "A-MR", migmalemix.urban = "1X", migmalemix.rural = "A-X"))
     }
   }
   if (births.total > 0) {

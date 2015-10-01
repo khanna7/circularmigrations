@@ -225,13 +225,15 @@ get_prev_example_4 <- function (dat, at)
     dat$epi$size <- network.size(network.extract(dat$nw, at = 1))
     dat$epi$mean_deg <- 2*dat$epi$edge_count/length(which(dat$attr$active == 1))
     dat$epi$prev.as.percent <- dat$epi$i.num[at]/dat$epi$size
-    dat$epi$mixing_matrix_urban <- mixingmatrix(network.extract(dat$nw, at = 1), "rest.urb")$matrix[1, 1]
+    dat$epi$mixing_matrix_urban <- mixingmatrix(network.extract(dat$nw, at = 1), "migmalemix.urban")$matrix[2, 2]
+    dat$epi$mixing_matrix_rural <- mixingmatrix(network.extract(dat$nw, at = 1), "migmalemix.rural")$matrix[2, 2]
   } else {
     dat$epi$edge_count[at] <- network.edgecount(network.extract(dat$nw, at = at))
     dat$epi$size[at] <- network.size(network.extract(dat$nw, at = at))
     dat$epi$mean_deg[at] <- 2*dat$epi$edge_count[at]/length(which(dat$attr$active == 1))
     dat$epi$prev.as.percent[at] <- dat$epi$i.num[at]/dat$epi$size[at]
-    dat$epi$mixing_matrix_urban[at] <- mixingmatrix(network.extract(dat$nw, at=at), "rest.urb")$matrix[1, 1]
+    dat$epi$mixing_matrix_urban[at] <- mixingmatrix(network.extract(dat$nw, at=at), "migmalemix.urban")$matrix[2, 2]
+    dat$epi$mixing_matrix_rural[at] <- mixingmatrix(network.extract(dat$nw, at=at), "migmalemix.rural")$matrix[2, 2]
   }
   
   active.vertices <- which(active == 1)
@@ -286,8 +288,8 @@ get_prev_example_4 <- function (dat, at)
 #   mean_deg <- data.frame(mean_deg = dat$epi$mean_deg)
 #   write.csv(mean_deg, filename=paste(nsim_, "mean_deg_4.csv", sep=""))
 #   
-#   incidence <- data.frame(incidence = dat$epi$si.flow)
-#   write.csv(incidence, filename=paste(nsim_, "incidence_4.csv", sep=""))
+  incidence <- data.frame(incidence = dat$epi$si.flow)
+  write.csv(incidence, "incidence_test.csv")# filename=paste(nsim_, "incidence_4.csv", sep=""))
 #   
 #   births <- data.frame(births = dat$epi$b.total)
 #   write.csv(births, filename=paste(nsim_, "births_4.csv", sep=""))
